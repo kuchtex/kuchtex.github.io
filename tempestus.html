@@ -77,10 +77,11 @@
       <label>Zawodność broni (%): <input id="jamChance" type="number" value="0" min="0" max="100" step="1"></label>
       <label>Akcje na usunięcie zacięcia: <input id="unjamCost" type="number" value="1" min="1"></label>
 
-      <h3>Przeciwnik</h3>
+      <h3>Przeciwnik/ustawienia symulacji</h3>
       <label>Punkty życia (HP): <input id="hp" type="number" value="100" min="0"></label>
       <label>Liczba symulacji: <input id="sims" type="number" value="5000" min="1" step="1"></label>
       <label>Akcje na turę: <input id="actsPerTurn" type="number" value="3" min="1"></label>
+      <label>Bonus do celnosci (cadia/strzelec) <input id="bonusAcc" type="number" value="0" min="1"></label>
 
       <h3>Opancerzenie</h3>
       <table>
@@ -90,7 +91,7 @@
 
       <button id="shootBtn">Strzel (jedna seria)</button>
       <button id="simBtn">Średnia liczba serii (symulacja)</button>
-      <button id="battleBtn">Średnie wyniki 10 tur (magazynki & zabici) + przykładowy log</button>
+      <button id="battleBtn">Średnie wyniki 10 tur (magazynki & zabici)</button>
       <p class="small" style="margin-top:6px">Formuła mnożnika: <code>jeśli armor < mult+pen → eff = mult - (armor-pen); inaczej → eff = 1/2,1/4,1/8... (1/(2^(diff+1)))</code>.</p>
     </div>
 
@@ -179,7 +180,7 @@ function simulateSeries(){
   log.innerHTML='';
   let dmg=0;
   for(let s=1;s<=shots;s++){
-    const r=singleShot(base,acc,pen,jamChance);
+    const r=singleShot(base,acc+bonusAcc,pen,jamChance);
     const div=document.createElement('div');
     if(r.jam){ div.textContent=`Strzał ${s}: ZACIĘCIE (r=${r.hitRoll})`; log.appendChild(div); break; }
     else if(!r.hit){ div.textContent=`Strzał ${s}: pudło (r=${r.hitRoll})`; }
@@ -207,7 +208,7 @@ function estimateAverageSeries(){
       ser++;
       let dmg=0;
       for(let s=0;s<shots;s++){
-        const r=singleShot(base,acc,pen,jamChance);
+        const r=singleShot(base,acc+bonusAcc,pen,jamChance);
         if(r.jam){ break; }
         if(r.hit) dmg+=r.damage;
       }
@@ -297,7 +298,7 @@ function simulateBattle10Turns(){
         if(recordSample) sampleLogs.push(`T${turn}: atak (wykonano seria ${shots}) → ammo po: ${ammo}`);
         let dmg = 0;
         for(let s=0;s<shots;s++){
-          const r = singleShot(base, acc, pen, jamChance);
+          const r = singleShot(base, acc+bonusAcc, pen, jamChance);
           if(recordSample){
             if(r.jam) sampleLogs.push(`T${turn}: rzut trafienia ${r.hitRoll} → ZACIĘCIE`);
             else if(!r.hit) sampleLogs.push(`T${turn}: rzut trafienia ${r.hitRoll} → PUDŁO`);
@@ -350,5 +351,6 @@ document.getElementById('battleBtn').addEventListener('click', ()=>{ simulateBat
 </script>
 </body>
 </html>
+
 
 
