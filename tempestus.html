@@ -171,7 +171,7 @@ function singleShot(base, acc, pen, jamChance){
 }
 
 function simulateSeries(){
-  const acc=+document.getElementById('acc').value;
+  const acc=+document.getElementById('acc').value+document.getElementById('bonusAcc').value;
   const shots=+document.getElementById('shots').value;
   const base=+document.getElementById('base').value;
   const pen=+document.getElementById('pen').value;
@@ -180,7 +180,7 @@ function simulateSeries(){
   log.innerHTML='';
   let dmg=0;
   for(let s=1;s<=shots;s++){
-    const r=singleShot(base,acc+bonusAcc,pen,jamChance);
+    const r=singleShot(base,acc,pen,jamChance);
     const div=document.createElement('div');
     if(r.jam){ div.textContent=`Strzał ${s}: ZACIĘCIE (r=${r.hitRoll})`; log.appendChild(div); break; }
     else if(!r.hit){ div.textContent=`Strzał ${s}: pudło (r=${r.hitRoll})`; }
@@ -195,7 +195,7 @@ function simulateSeries(){
 
 function estimateAverageSeries(){
   const sims=+document.getElementById('sims').value;
-  const acc=+document.getElementById('acc').value;
+  const acc=+document.getElementById('acc').value+document.getElementById('bonusAcc').value;;
   const shots=+document.getElementById('shots').value;
   const base=+document.getElementById('base').value;
   const hp=+document.getElementById('hp').value;
@@ -208,7 +208,7 @@ function estimateAverageSeries(){
       ser++;
       let dmg=0;
       for(let s=0;s<shots;s++){
-        const r=singleShot(base,acc+bonusAcc,pen,jamChance);
+        const r=singleShot(base,acc,pen,jamChance);
         if(r.jam){ break; }
         if(r.hit) dmg+=r.damage;
       }
@@ -224,7 +224,7 @@ function estimateAverageSeries(){
 
 function simulateBattle10Turns(){
   const sims=+document.getElementById('sims').value;
-  const acc=+document.getElementById('acc').value;
+  const acc=+document.getElementById('acc').value+document.getElementById('bonusAcc').value;;
   const shots=+document.getElementById('shots').value;
   const base=+document.getElementById('base').value;
   const hpBase=+document.getElementById('hp').value;
@@ -298,7 +298,7 @@ function simulateBattle10Turns(){
         if(recordSample) sampleLogs.push(`T${turn}: atak (wykonano seria ${shots}) → ammo po: ${ammo}`);
         let dmg = 0;
         for(let s=0;s<shots;s++){
-          const r = singleShot(base, acc+bonusAcc, pen, jamChance);
+          const r = singleShot(base, acc, pen, jamChance);
           if(recordSample){
             if(r.jam) sampleLogs.push(`T${turn}: rzut trafienia ${r.hitRoll} → ZACIĘCIE`);
             else if(!r.hit) sampleLogs.push(`T${turn}: rzut trafienia ${r.hitRoll} → PUDŁO`);
@@ -351,6 +351,7 @@ document.getElementById('battleBtn').addEventListener('click', ()=>{ simulateBat
 </script>
 </body>
 </html>
+
 
 
 
