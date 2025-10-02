@@ -19,18 +19,18 @@
   </style>
 </head>
 <body>
-  <h1>Emulator tempestusa</h1>
-  <div class="row">
-    <div class="panel">
-      <label>Wczytaj plik XLSX z bronią: <input type="file" id="fileInput" accept=".xlsx"></label>
-      <label>Wybierz broń: 
-        <select id="weaponSelect">
-          <option value="">-- Wybierz broń --</option>
-        </select>
-      </label>
+<h1>Emulator tempestusa</h1>
+<div class="row">
+  <div class="panel">
+    <label>Wczytaj plik XLSX z bronią: <input type="file" id="fileInput" accept=".xlsx"></label>
+    <label>Wybierz broń: 
+      <select id="weaponSelect">
+        <option value="">-- Wybierz broń --</option>
+      </select>
+    </label>
 
-      <script src="https://cdn.jsdelivr.net/npm/xlsx@0.18.5/dist/xlsx.full.min.js"></script>
-      <script>
+    <script src="https://cdn.jsdelivr.net/npm/xlsx@0.18.5/dist/xlsx.full.min.js"></script>
+    <script>
       const fileInput = document.getElementById('fileInput');
       const weaponSelect = document.getElementById('weaponSelect');
       let weaponsData = [];
@@ -65,46 +65,46 @@
         document.getElementById('jamChance').value = w['JamChance'] || 0;
         document.getElementById('unjamCost').value = w['UnjamCost'] || 1;
       });
-      </script>
+    </script>
 
-      <h2>Ustawienia broni / serii</h2>
-      <label>Celność (1d100 ≤ celność = trafienie): <input id="acc" type="number" value="25" min="0" max="100">%</label>
-      <label>Liczba strzałów w serii: <input id="shots" type="number" value="5" min="1"></label>
-      <label>Obrazenia bazowe na strzał: <input id="base" type="number" value="40" min="0"></label>
-      <label>Penetracja pancerza: <input id="pen" type="number" value="1" min="0" step="1"></label>
-      <label>Pojemność magazynka (w strzałach): <input id="magSize" type="number" value="30" min="1"></label>
-      <label>Koszt przeładowania (akcje): <input id="reloadCost" type="number" value="2" min="1"></label>
-      <label>Zawodność broni (%): <input id="jamChance" type="number" value="0" min="0" max="100" step="1"></label>
-      <label>Akcje na usunięcie zacięcia: <input id="unjamCost" type="number" value="1" min="1"></label>
+    <h2>Ustawienia broni / serii</h2>
+    <label>Celność (1d100 ≤ celność = trafienie): <input id="acc" type="number" value="25" min="0" max="100">%</label>
+    <label>Liczba strzałów w serii: <input id="shots" type="number" value="5" min="1"></label>
+    <label>Obrazenia bazowe na strzał: <input id="base" type="number" value="40" min="0"></label>
+    <label>Penetracja pancerza: <input id="pen" type="number" value="1" min="0" step="1"></label>
+    <label>Pojemność magazynka (w strzałach): <input id="magSize" type="number" value="30" min="1"></label>
+    <label>Koszt przeładowania (akcje): <input id="reloadCost" type="number" value="2" min="1"></label>
+    <label>Zawodność broni (%): <input id="jamChance" type="number" value="0" min="0" max="100" step="1"></label>
+    <label>Akcje na usunięcie zacięcia: <input id="unjamCost" type="number" value="1" min="1"></label>
 
-      <h3>Przeciwnik/ustawienia symulacji</h3>
-      <label>Punkty życia (HP): <input id="hp" type="number" value="100" min="0"></label>
-      <label>Liczba symulacji: <input id="sims" type="number" value="5000" min="1" step="1"></label>
-      <label>Akcje na turę: <input id="actsPerTurn" type="number" value="3" min="1"></label>
-      <label>Bonus do celnosci (cadia/strzelec) <input id="bonusAcc" type="number" value="0" min="1"></label>
+    <h3>Przeciwnik/ustawienia symulacji</h3>
+    <label>Punkty życia (HP): <input id="hp" type="number" value="100" min="0"></label>
+    <label>Liczba symulacji: <input id="sims" type="number" value="5000" min="1" step="1"></label>
+    <label>Akcje na turę: <input id="actsPerTurn" type="number" value="3" min="1"></label>
+    <label>Bonus do celnosci (cadia/strzelec) <input id="bonusAcc" type="number" value="0" min="0"></label>
 
-      <h3>Opancerzenie</h3>
-      <table>
-        <thead><tr><th>Obszar</th><th>Mnożnik</th><th>Opancerzenie</th></tr></thead>
-        <tbody id="zonesTable"></tbody>
-      </table>
+    <h3>Opancerzenie</h3>
+    <table>
+      <thead><tr><th>Obszar</th><th>Mnożnik</th><th>Opancerzenie</th></tr></thead>
+      <tbody id="zonesTable"></tbody>
+    </table>
 
-      <button id="shootBtn">Strzel (jedna seria)</button>
-      <button id="simBtn">Średnia liczba serii (symulacja)</button>
-      <button id="battleBtn">Średnie wyniki 10 tur (magazynki & zabici)</button>
-      <p class="small" style="margin-top:6px">Formuła mnożnika: <code>jeśli armor < mult+pen → eff = mult - (armor-pen); inaczej → eff = 1/2,1/4,1/8... (1/(2^(diff+1)))</code>.</p>
-    </div>
-
-    <div class="panel">
-      <h2>Diagram trafień</h2>
-      <img class="diagram" src="/mnt/data/98d811c3-8b4d-406c-bf08-a38ebeaf374a.png" alt="diagram lokalizacji trafień">
-
-      <h2>Wyniki</h2>
-      <div class="log" id="log"></div>
-      <h3>Podsumowanie</h3>
-      <pre id="summary">Brak wyników</pre>
-    </div>
+    <button id="shootBtn">Strzel (jedna seria)</button>
+    <button id="simBtn">Średnia liczba serii (symulacja)</button>
+    <button id="battleBtn">Średnie wyniki 10 tur (magazynki & zabici)</button>
+    <p class="small" style="margin-top:6px">Formuła mnożnika: <code>jeśli armor < mult+pen → eff = mult - (armor-pen); inaczej → eff = 1/2,1/4,1/8... (1/(2^(diff+1)))</code>.</p>
   </div>
+
+  <div class="panel">
+    <h2>Diagram trafień</h2>
+    <img class="diagram" src="/mnt/data/98d811c3-8b4d-406c-bf08-a38ebeaf374a.png" alt="diagram lokalizacji trafień">
+
+    <h2>Wyniki</h2>
+    <div class="log" id="log"></div>
+    <h3>Podsumowanie</h3>
+    <pre id="summary">Brak wyników</pre>
+  </div>
+</div>
 
 <script>
 const zones = [
@@ -138,10 +138,8 @@ function getEffectiveMultiplier(zoneIndex, pen){
   const effectiveArmor = armor - pen;
 
   if(effectiveArmor < z.mult){
-    // odejmujemy pancerz dopóki > 0 (np mult=5 armor=3 -> eff=2)
     return z.mult - effectiveArmor;
   } else {
-    // jeśli pancerz >= mult -> schodzimy w potęgach 1/2, 1/4, 1/8...
     const diff = effectiveArmor - z.mult;
     return 1 / (2 ** (diff + 1));
   }
@@ -158,204 +156,145 @@ function zoneByRoll(r){
 
 function singleShot(base, acc, pen, jamChance){
   const hitRoll = roll100();
+  if(hitRoll <= jamChance) return {jam:true, hit:false, hitRoll};
+  if(hitRoll > acc) return {hit:false, hitRoll};
 
-  // sprawdzamy zacięcie
-  if(hitRoll <= jamChance){
-    return {jam:true, hit:false, hitRoll};
-  }
-
-  // sprawdzamy trafienie
-  if(hitRoll > acc) {
-    return {hit:false, hitRoll};
-  }
-
-  // trafienie
   const locRoll = roll100();
   const zoneIndex = zoneByRoll(locRoll);
   const zone = zones[zoneIndex];
   const effMult = getEffectiveMultiplier(zoneIndex, pen);
   const damage = base * effMult;
 
-  return {
-    hit:true,
-    hitRoll,
-    locRoll,
-    zoneIndex,
-    zoneName: zone.name,
-    base,
-    mult: zone.mult,
-    armor: zone.armor,
-    effMult,
-    damage
-  };
+  return {hit:true, hitRoll, locRoll, zoneIndex, zoneName: zone.name, base, mult: zone.mult, armor: zone.armor, effMult, damage};
+}
+
+function getCurrentAcc(){
+  const accVal = +document.getElementById('acc').value;
+  const bonus = +document.getElementById('bonusAcc').value;
+  return Math.min(accVal + bonus, 100);
 }
 
 function simulateSeries(){
-  const acc = +document.getElementById('acc').value + +document.getElementById('bonusAcc').value;
-  const shots=+document.getElementById('shots').value;
-  const base=+document.getElementById('base').value;
-  const pen=+document.getElementById('pen').value;
-  const jamChance=+document.getElementById('jamChance').value;
-  const log=document.getElementById('log');
-  log.innerHTML='';
-  let dmg=0;
-  for(let s=1;s<=shots;s++){
-    const r=singleShot(base,acc,pen,jamChance);
-    const div=document.createElement('div');
-    if(r.jam){ div.textContent=`Strzał ${s}: ZACIĘCIE (r=${r.hitRoll})`; log.appendChild(div); break; }
-    else if(!r.hit){ div.textContent=`Strzał ${s}: pudło (r=${r.hitRoll})`; }
-    else{
-      div.textContent=`Strzał ${s}: trafienie! → ${r.zoneName} | eff=${r.effMult.toFixed(3)} → dmg=${r.damage.toFixed(2)}`;
-      dmg+=r.damage;
-    }
+  const acc = getCurrentAcc();
+  const shots = +document.getElementById('shots').value;
+  const base = +document.getElementById('base').value;
+  const pen = +document.getElementById('pen').value;
+  const jamChance = +document.getElementById('jamChance').value;
+
+  const log = document.getElementById('log');
+  log.innerHTML = '';
+  let dmg = 0;
+
+  for(let s=1; s<=shots; s++){
+    const r = singleShot(base, acc, pen, jamChance);
+    const div = document.createElement('div');
+    if(r.jam){ div.textContent = `Strzał ${s}: ZACIĘCIE (r=${r.hitRoll})`; log.appendChild(div); break; }
+    else if(!r.hit){ div.textContent = `Strzał ${s}: pudło (r=${r.hitRoll})`; }
+    else{ div.textContent = `Strzał ${s}: trafienie! → ${r.zoneName} | eff=${r.effMult.toFixed(3)} → dmg=${r.damage.toFixed(2)}`; dmg+=r.damage; }
     log.appendChild(div);
   }
-  document.getElementById('summary').textContent=`Suma obrażeń: ${dmg.toFixed(2)}`;
+
+  document.getElementById('summary').textContent = `Suma obrażeń: ${dmg.toFixed(2)}`;
 }
 
 function estimateAverageSeries(){
-  const sims=+document.getElementById('sims').value;
-  const acc=+document.getElementById('acc').value + +document.getElementById('bonusAcc').value;;
-  const shots=+document.getElementById('shots').value;
-  const base=+document.getElementById('base').value;
-  const hp=+document.getElementById('hp').value;
-  const pen=+document.getElementById('pen').value;
-  const jamChance=+document.getElementById('jamChance').value;
-  let total=0;
-  for(let i=0;i<sims;i++){
-    let rem=hp; let ser=0;
-    while(rem>0 && ser<1000){
+  const sims = +document.getElementById('sims').value;
+  const acc = getCurrentAcc();
+  const shots = +document.getElementById('shots').value;
+  const base = +document.getElementById('base').value;
+  const hp = +document.getElementById('hp').value;
+  const pen = +document.getElementById('pen').value;
+  const jamChance = +document.getElementById('jamChance').value;
+
+  let total = 0;
+  for(let i=0; i<sims; i++){
+    let rem = hp;
+    let ser = 0;
+    while(rem > 0 && ser < 1000){
       ser++;
-      let dmg=0;
-      for(let s=0;s<shots;s++){
-        const r=singleShot(base,acc,pen,jamChance);
-        if(r.jam){ break; }
-        if(r.hit) dmg+=r.damage;
+      let dmg = 0;
+      for(let s=0; s<shots; s++){
+        const r = singleShot(base, acc, pen, jamChance);
+        if(r.jam) break;
+        if(r.hit) dmg += r.damage;
       }
       if(dmg<=0) continue;
-      rem-=dmg;
+      rem -= dmg;
     }
-    total+=ser;
+    total += ser;
   }
-  document.getElementById('log').innerHTML=`Średnia serii ≈ ${avg.toFixed(2)}`;
-  document.getElementById('summary').textContent=`Średnia serii potrzebnych do ${hp} HP: ${avg.toFixed(2)}`;
+
+  const avg = total/sims;
+  document.getElementById('log').innerHTML = `Średnia serii ≈ ${avg.toFixed(2)}`;
+  document.getElementById('summary').textContent = `Średnia serii potrzebnych do ${hp} HP: ${avg.toFixed(2)}`;
 }
 
 function simulateBattle10Turns(){
-  const sims=+document.getElementById('sims').value;
-  const acc = +document.getElementById('acc').value + +document.getElementById('bonusAcc').value;
-  const shots=+document.getElementById('shots').value;
-  const base=+document.getElementById('base').value;
-  const hpBase=+document.getElementById('hp').value;
-  const pen=+document.getElementById('pen').value;
-  const magSize=+document.getElementById('magSize').value;
-  const reloadCost=+document.getElementById('reloadCost').value;
-  const actsPerTurn=+document.getElementById('actsPerTurn').value;
-  const jamChance=+document.getElementById('jamChance').value;
-  const unjamCost=+document.getElementById('unjamCost').value;
+  const sims = +document.getElementById('sims').value;
+  const acc = getCurrentAcc();
+  const shots = +document.getElementById('shots').value;
+  const base = +document.getElementById('base').value;
+  const hpBase = +document.getElementById('hp').value;
+  const pen = +document.getElementById('pen').value;
+  const magSize = +document.getElementById('magSize').value;
+  const reloadCost = +document.getElementById('reloadCost').value;
+  const actsPerTurn = +document.getElementById('actsPerTurn').value;
+  const jamChance = +document.getElementById('jamChance').value;
+  const unjamCost = +document.getElementById('unjamCost').value;
 
   const logEl = document.getElementById('log');
-  logEl.innerHTML = ''; // wyczyść log przed symulacją
+  logEl.innerHTML = '';
 
   let totalMags=0, totalKills=0, totalJams=0;
-  const sampleLogs = []; // log dla pierwszej symulacji
+
   for(let i=0;i<sims;i++){
     let ammo=magSize;
-    let magsUsed=1; // zaczynamy z jednym załadowanym magazynkiem
+    let magsUsed=1;
     let kills=0;
     let enemyHP=hpBase;
     let jammed=false;
     let jams=0;
-    let pendingAction = null; // {type:"reload"/"unjam", remainingActs:int}
-
-    const recordSample = (i===0); // tylko pierwsza symulacja będzie logowana
-    if(recordSample) sampleLogs.push(`>>> Przykładowa symulacja (1 z ${sims})`);
+    let pendingAction = null;
 
     for(let turn=1; turn<=10; turn++){
       let acts = actsPerTurn;
-      if(recordSample) sampleLogs.push(`--- Tura ${turn} ---`);
       while(acts>0){
-        // jeśli mamy trwającą czynność - kontynuuj
         if(pendingAction){
           const spend = Math.min(acts, pendingAction.remainingActs);
           pendingAction.remainingActs -= spend;
           acts -= spend;
-          if(recordSample) sampleLogs.push(`T${turn}: kontynuacja ${pendingAction.type} - zużyto ${spend}, zostaje ${pendingAction.remainingActs}`);
           if(pendingAction.remainingActs <= 0){
-            // zakończenie czynności
-            if(pendingAction.type === "reload"){
-              ammo = magSize;
-              magsUsed++; // doliczamy magazyn po DOKOŃCZENIU przeładowania
-              if(recordSample) sampleLogs.push(`T${turn}: zakończono przeładowanie → ammo=${ammo}, magazynków zużyto=${magsUsed}`);
-            } else if(pendingAction.type === "unjam"){
-              jammed = false;
-              if(recordSample) sampleLogs.push(`T${turn}: zakończono usuwanie zacięcia`);
-            }
+            if(pendingAction.type === "reload") ammo = magSize;
+            else if(pendingAction.type === "unjam") jammed = false;
             pendingAction = null;
           }
-          // kontynuujemy pętlę (z pozostałymi akt)
           continue;
         }
+        if(jammed){ pendingAction={type:"unjam", remainingActs:unjamCost}; continue; }
+        if(shots>ammo){ pendingAction={type:"reload", remainingActs:reloadCost}; continue; }
 
-        // jeśli broń zacięta - zacznij usuwanie zacięcia
-        if(jammed){
-          pendingAction = {type:"unjam", remainingActs:unjamCost};
-          if(recordSample) sampleLogs.push(`T${turn}: broń zacięta → rozpoczynam unjam (koszt ${unjamCost})`);
-          continue;
-        }
-
-        // jeśli brak wystarczającej amunicji na serię - zacznij przeładowanie
-        if(shots > ammo){
-          pendingAction = {type:"reload", remainingActs:reloadCost};
-          if(recordSample) sampleLogs.push(`T${turn}: brak amunicji (${ammo} < ${shots}) → rozpoczynam przeładowanie (koszt ${reloadCost})`);
-          continue;
-        }
-
-        // normalny atak: zużyj akcję i amunicję
-        acts--;
-        ammo -= shots;
-        if(recordSample) sampleLogs.push(`T${turn}: atak (wykonano seria ${shots}) → ammo po: ${ammo}`);
-        let dmg = 0;
+        acts--; ammo-=shots;
+        let dmg=0;
         for(let s=0;s<shots;s++){
-          const r = singleShot(base, acc, pen, jamChance);
-          if(recordSample){
-            if(r.jam) sampleLogs.push(`T${turn}: rzut trafienia ${r.hitRoll} → ZACIĘCIE`);
-            else if(!r.hit) sampleLogs.push(`T${turn}: rzut trafienia ${r.hitRoll} → PUDŁO`);
-            else sampleLogs.push(`T${turn}: trafienie → ${r.zoneName} (lok ${r.locRoll}) eff=${r.effMult.toFixed(3)} dmg=${r.damage.toFixed(2)}`);
-          }
-          if(r.jam){ jammed = true; jams++; break; }
-          if(r.hit) dmg += r.damage;
+          const r=singleShot(base, acc, pen, jamChance);
+          if(r.jam){ jammed=true; jams++; break; }
+          if(r.hit) dmg+=r.damage;
         }
-        enemyHP -= dmg;
-        if(enemyHP <= 0){
-          kills++;
-          enemyHP = hpBase;
-          if(recordSample) sampleLogs.push(`T${turn}: przeciwnik zabity! (liczba zabójstw w tej symulacji: ${kills})`);
-        }
-      } // koniec pętli akt w turze
-    } // koniec 10 tur dla pojedynczej symulacji
-
+        enemyHP-=dmg;
+        if(enemyHP<=0){ kills++; enemyHP=hpBase; }
+      }
+    }
     totalMags += magsUsed;
     totalKills += kills;
     totalJams += jams;
-    // do sampleLogs dodajemy podsumowanie pojedynczej symulacji
-    if(recordSample){
-      sampleLogs.push(`--- Podsumowanie przykładu ---`);
-      sampleLogs.push(`Zużyte magazynki: ${magsUsed}`);
-      sampleLogs.push(`Zabici przeciwnicy: ${kills}`);
-      sampleLogs.push(`Zacięcia: ${jams}`);
-    }
-  } // koniec pętli sims
+  }
 
   const avgMags = totalMags / sims;
   const avgKills = totalKills / sims;
   const avgJams = totalJams / sims;
 
-  // wyświetl wynik statystyczny i przykładowy log (pierwsza symulacja)
   document.getElementById('summary').textContent =
     `10 tur (średnio z ${sims} symulacji): ~${avgMags.toFixed(2)} magazynków, ~${avgKills.toFixed(2)} zabitych, ~${avgJams.toFixed(2)} zacięć.`;
-
-  logEl.innerHTML = sampleLogs.map(line => line.replace(/ /g, '&nbsp;')).join('<br>');
 }
 
 populateTable();
@@ -364,17 +303,9 @@ document.getElementById('zonesTable').addEventListener('input', e => {
     zones[+e.target.dataset.zone].armor = +e.target.value;
   }
 });
-document.getElementById('shootBtn').addEventListener('click', ()=>{ simulateSeries(); });
-document.getElementById('simBtn').addEventListener('click', ()=>{ estimateAverageSeries(); });
-document.getElementById('battleBtn').addEventListener('click', ()=>{ simulateBattle10Turns(); });
+document.getElementById('shootBtn').addEventListener('click', simulateSeries);
+document.getElementById('simBtn').addEventListener('click', estimateAverageSeries);
+document.getElementById('battleBtn').addEventListener('click', simulateBattle10Turns);
 </script>
 </body>
 </html>
-
-
-
-
-
-
-
-
