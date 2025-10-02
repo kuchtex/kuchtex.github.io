@@ -159,12 +159,12 @@ function zoneByRoll(r){
 function singleShot(base, acc, pen, jamChance){
   const hitRoll = roll100();
 
-  // sprawdzenie zacięcia
+  // sprawdzamy zacięcie
   if(hitRoll <= jamChance){
     return {jam:true, hit:false, hitRoll};
   }
 
-  // sprawdzenie trafienia
+  // sprawdzamy trafienie
   if(hitRoll > acc) {
     return {hit:false, hitRoll};
   }
@@ -370,6 +370,7 @@ document.getElementById('battleBtn').addEventListener('click', ()=>{ simulateBat
 </script>
 </body>
 </html>
+
 
 
 
