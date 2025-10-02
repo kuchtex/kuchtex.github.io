@@ -158,16 +158,36 @@ function zoneByRoll(r){
 
 function singleShot(base, acc, pen, jamChance){
   const hitRoll = roll100();
-  if(hitRoll > (100 - jamChance)){
+
+  // sprawdzenie zacięcia
+  if(hitRoll <= jamChance){
     return {jam:true, hit:false, hitRoll};
   }
-  if(hitRoll > acc) return {hit:false, hitRoll};
+
+  // sprawdzenie trafienia
+  if(hitRoll > acc) {
+    return {hit:false, hitRoll};
+  }
+
+  // trafienie
   const locRoll = roll100();
   const zoneIndex = zoneByRoll(locRoll);
   const zone = zones[zoneIndex];
   const effMult = getEffectiveMultiplier(zoneIndex, pen);
   const damage = base * effMult;
-  return {hit:true, hitRoll, locRoll, zoneIndex, zoneName:zone.name, base, mult:zone.mult, armor:zone.armor, effMult, damage};
+
+  return {
+    hit:true,
+    hitRoll,
+    locRoll,
+    zoneIndex,
+    zoneName: zone.name,
+    base,
+    mult: zone.mult,
+    armor: zone.armor,
+    effMult,
+    damage
+  };
 }
 
 function simulateSeries(){
@@ -217,7 +237,6 @@ function estimateAverageSeries(){
     }
     total+=ser;
   }
-  const avg=total/sims;
   document.getElementById('log').innerHTML=`Średnia serii ≈ ${avg.toFixed(2)}`;
   document.getElementById('summary').textContent=`Średnia serii potrzebnych do ${hp} HP: ${avg.toFixed(2)}`;
 }
@@ -351,6 +370,7 @@ document.getElementById('battleBtn').addEventListener('click', ()=>{ simulateBat
 </script>
 </body>
 </html>
+
 
 
 
